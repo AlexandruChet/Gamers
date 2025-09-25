@@ -1,0 +1,142 @@
+$header-bg: #232526;
+$btn-color: #fff;
+$burger-bg: rgba(35, 37, 38, 0.98);
+$gradient: linear-gradient(90deg, #00e0ff, #6c63ff);
+
+.header {
+  padding: 2rem 2rem;
+  height: 6rem;
+  position: relative;
+  background-color: $header-bg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1100;
+    transition: transform 0.3s ease;
+
+    span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: $btn-color;
+      border-radius: 3px;
+      transition: all 0.4s ease;
+    }
+
+    &.active {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+    }
+  }
+}
+
+.burger__menus {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: $burger-bg;
+  backdrop-filter: blur(8px);
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &.active {
+    transform: translateX(0);
+  }
+}
+
+.services__names {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+
+    li {
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fadeInUp 0.5s forwards;
+
+      &:nth-child(1) { animation-delay: 0.2s; }
+      &:nth-child(2) { animation-delay: 0.4s; }
+      &:nth-child(3) { animation-delay: 0.6s; }
+      &:nth-child(4) { animation-delay: 0.8s; }
+
+      a {
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: 600;
+        color: $btn-color;
+        position: relative;
+        transition: color 0.3s ease, transform 0.3s ease;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -6px;
+          left: 0;
+          width: 0;
+          height: 3px;
+          background: $gradient;
+          transition: width 0.4s ease;
+        }
+
+        &:hover {
+          color: #00e0ff;
+          transform: scale(1.05);
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .burger__menus {
+    width: 100%;
+  }
+
+  .services__names ul li a {
+    font-size: 20px;
+  }
+}
