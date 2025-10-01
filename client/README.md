@@ -1,73 +1,134 @@
-# React + TypeScript + Vite
+# 📌 Header Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This component is responsible for the top of the site (**header**) with the logo, navigation menu, search and icons. **burger menu** for mobile devices is also implemented.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Technologies used
 
-## React Compiler
+* **React (useState, useEffect)** – state and lifecycle management.
+* **TypeScript** – additional types (`boolean` for menu state).
+* **SCSS** – styling with a modular structure (BEM).
+* **SVG icons** – for logo, profile, cart and badge.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Component logic
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔹 Menu state
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+const [burgerMenu, setBurgerMenu] = useState<boolean>(false);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* `burgerMenu` → `true` if the menu is open.
+* `setBurgerMenu` → function to change the state.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🔹 Opening / closing the menu
+
+```tsx
+function toggleMenu() {
+setBurgerMenu(!burgerMenu);
+}
 ```
+
+* Called when clicking on the burger button.
+* If the menu was closed → opens.
+* If open → closes.
+
+---
+
+### 🔹 Closing when clicking outside the menu
+
+```tsx
+useEffect(() => {
+function handleClickOutside(event: MouseEvent) {
+const menu = document.querySelector(".header__menu");
+if (menu && !menu.contains(event.target as Node)) {
+setBurgerMenu(false);
+}
+}
+
+if (burgerMenu) {
+document.addEventListener("mousedown", handleClickOutside);
+}
+
+return () => {
+document.removeEventListener("mousedown", handleClickOutside);
+};
+}, [burgerMenu]);
+```
+
+* When the menu is open → a `mousedown` listener is added.
+* If the click was **outside the menu**, it is closed.
+* When the component is closed or unmounted, the listener is removed.
+
+---
+
+## 🖼️ Layout
+
+### 🔹 Burger button
+
+```tsx
+<button
+onClick={toggleMenu}
+className={`header__burger-btn ${burgerMenu ? "active" : ""}`}
+aria-label="Toggle menu"
+>
+<span></span>
+<span></span>
+<span></span>
+</button>
+```
+
+* Consists of three `span` (three lines of the burger icon).
+* When the menu is opened, the `.active` class is added.
+
+---
+
+### 🔹 Menu
+
+Rendered only when `burgerMenu === true`:
+
+```tsx
+{burgerMenu && (
+<div className="header__menu header__menu--open container">
+...
+</div>
+)}
+```
+
+Includes:
+
+1. **Logo** – image + text "GAMERS".
+2. **Navigation** – list with items (`Home, Pages, Products...`).
+3. **Search** – input with placeholder.
+4. **Icons** – badge, profile, cart.
+
+---
+
+## 🎨 SCSS (main points)
+
+* `.header__burger-btn` – burger button styling.
+* `.header__menu--open` – open menu styling.
+* `.header__nav-link:hover` – link hover effect.
+* `.header__icons img` – styles for icons.
+
+---
+
+## ✅ Summary
+
+* The component is **responsive** (burger menu for mobile).
+* There is **closing when clicking outside the menu**.
+* **React Hooks** are used (`useState`, `useEffect`).
+* Logic is separated from styles (SCSS with BEM).
+
+---
+
+🚀 This `Header` can be easily extended:
+
+* add **menu opening animations**,
+* implement **autocomplete in search**,
+* connect **React Router** for navigation.
