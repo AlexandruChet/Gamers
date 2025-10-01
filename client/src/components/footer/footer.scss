@@ -22,6 +22,7 @@
   &__social {
     width: 50%;
     display: flex;
+    flex-wrap: wrap;
     gap: 5%;
     padding-left: 5%;
 
@@ -48,8 +49,15 @@
     flex-wrap: wrap;
   }
 
+  &__cards {
+    img {
+      width: 100%;
+    }
+  }
+
   &__download {
     display: flex;
+    flex-wrap: wrap;
     gap: 2%;
     align-items: center;
 
@@ -64,7 +72,7 @@
     }
 
     img {
-      width: 140px;
+      width: 20%;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
 

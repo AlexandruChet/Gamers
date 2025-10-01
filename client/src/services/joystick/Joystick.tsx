@@ -4,16 +4,17 @@ import Button from "./button/Button";
 
 const Joystick = () => {
   return (
-    <section>
-      <div>
-        <h1>PS4 V2 DualShock 4</h1>
-        <h3>wireless controller for PlayStation 4</h3>
-        <p>compatibilityCentric</p>
-        <h3>₹2999</h3>
+    <section className="joystick">
+      <div className="joystick__info">
+        <h1 className="joystick__title">PS4 V2 DualShock 4</h1>
+        <h3 className="joystick__subtitle">Wireless controller for PlayStation 4</h3>
+        <p className="joystick__description">compatibilityCentric</p>
+        <h3 className="joystick__price">₹2999</h3>
         <Button />
       </div>
-      <div>
-        <img src={JoystickImg} alt="goods" />
+      <div className="joystick__image-container">
+        <h3 className="percent">50%</h3>
+        <img className="joystick__image" src={JoystickImg} alt="goods" />
       </div>
     </section>
   );

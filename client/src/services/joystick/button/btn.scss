@@ -1,10 +1,41 @@
-button {
-  background: #22c1c3;
+.btn-auth {
   background: linear-gradient(
-    0deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(215, 40, 40, 1) 100%
+    135deg,
+    #22c1c3 0%,
+    #d72828 100%
   );
-  padding: 10px;
-  width: 20%;
+
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 24px;
+  width: auto;
+  min-width: 150px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(
+      135deg,
+      #d72828 0%,
+      #22c1c3 100%
+    );
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(34, 193, 195, 0.5);
+  }
 }

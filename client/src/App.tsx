@@ -6,8 +6,8 @@ const App = () => {
   return (
     <>
       <Header />
-      <Footer />
       <Joystick />
+      <Footer />
     </>
   );
 };
