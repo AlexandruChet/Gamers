@@ -17,8 +17,15 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__logo">
-        <button onClick={toggleFooter} className="footer__toggle-btn">
-          ^
+        <button
+          onClick={toggleFooter}
+          className={`footer__toggle-btn ${
+            footerState ? "footer__toggle-btn--active" : ""
+          }`
+        }
+         aria-label={footerState ? "Close footer" : "Open footer"}
+        >
+          ▼
         </button>
 
         {footerState && (
