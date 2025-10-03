@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const PORT = 8000;
-const STATIC_PATH = path.join(__dirname, "../client/dist");
+const CLIENT_PATH = path.join(__dirname, "../client/dist");
 
 const MIME_TYPES = {
   ".html": "text/html; charset=UTF-8",
@@ -13,36 +13,49 @@ const MIME_TYPES = {
   ".jpg": "image/jpeg",
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
+  ".tsx": "text/plain; charset=UTF-8",
+};
+
+const prepareFile = async (url) => {
+  let filePath = path.join(CLIENT_PATH, url);
+  if (url.endsWith("/")) filePath = path.join(filePath, "index.html");
+
+  const resolvedPath = path.resolve(filePath);
+  const pathTraversal = !resolvedPath.startsWith(CLIENT_PATH);
+
+  const exists = await fs.promises
+    .access(resolvedPath)
+    .then(() => true)
+    .catch(() => false);
+  const found = !pathTraversal && exists;
+
+  const streamPath = found
+    ? filePath
+    : path.join(CLIENT_PATH, "404.html");
+
+  const ext = path.extname(streamPath).toLowerCase() || ".html";
+  const stream = fs.createReadStream(streamPath);
+
+  return { found, ext, stream };
 };
 
 http
-  .createServer((req, res) => {
-    let filePath = path.join(
-      STATIC_PATH,
-      req.url === "/" ? "index.html" : req.url
-    );
-    let ext = path.extname(filePath);
+  .createServer(async (req, res) => {
+    try {
+      const file = await prepareFile(req.url);
+      const statusCode = file.found ? 200 : 404;
+      const mimeType = MIME_TYPES[file.ext] || "text/html; charset=UTF-8";
 
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        fs.readFile(path.join(STATIC_PATH, "404.html"), (err2, data2) => {
-          if (err2) {
-            res.writeHead(500, { "Content-Type": "text/plain" });
-            res.end("Server Error");
-            return;
-          }
-          res.writeHead(404, { "Content-Type": MIME_TYPES[".html"] });
-          res.end(data2);
-        });
-        return;
-      }
+      res.writeHead(statusCode, { "Content-Type": mimeType });
+      file.stream.pipe(res);
 
-      res.writeHead(200, {
-        "Content-Type": MIME_TYPES[ext] || "application/octet-stream",
-      });
-      res.end(data);
-    });
+      console.log(`${req.method} ${req.url} ${statusCode}`);
+    } catch (err) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Server Error");
+      console.error(err);
+    }
   })
-  .listen(PORT, () => {
-    console.log(`✅ Server running at http://127.0.0.1:${PORT}`);
-  });
+  .listen(PORT);
+
+console.log(`Server running at http://127.0.0.1:${PORT}`);
