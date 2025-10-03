@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./auth.scss"
+import "./auth.scss";
 
 type AuthProps = {
   isVisible: boolean;
@@ -8,82 +8,127 @@ type AuthProps = {
 
 const Auth = ({ isVisible, onClose }: AuthProps) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
   if (!isVisible) return null;
 
-  const toggle = () => setIsLogin((e) => !e);
+  const toggle = () => setIsLogin((prev) => !prev);
+
+  const validation = (pas: string) => {
+    const minLength = 12;
+    const errors: string[] = [];
+
+    if (!pas) {
+      alert("Password is empty");
+      return false;
+    }
+
+    if (pas.length < minLength) errors.push("Password is too short");
+    if (!/[A-Z]/.test(pas))
+      errors.push("Must contain at least one uppercase letter");
+    if (!/[a-z]/.test(pas))
+      errors.push("Must contain at least one lowercase letter");
+    if (!/[0-9]/.test(pas)) errors.push("Must contain at least one digit");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pas))
+      errors.push("Must contain at least one special character");
+
+    if (errors.length > 0) {
+      alert(errors.join("\n"));
+      return false;
+    } else {
+      alert("Password successfully validated!");
+      return true;
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    validation(password);
+  };
 
   return (
     <div className="auth-modal">
-      <button className="auth-modal__close" onClick={onClose}>
-        Close
-      </button>
+      <div className="auth-modal__content">
+        <button className="auth-modal__close" onClick={onClose}>
+          Close
+        </button>
 
-      {isLogin ? (
-        <form className="auth-modal__form auth-modal__form--login">
-          <h1 className="auth-modal__title">Login</h1>
-          <h3 className="auth-modal__subtitle">
-            Please login using account details below.
-          </h3>
-          <input
-            className="auth-modal__input"
-            type="text"
-            placeholder="Email Address"
-            name="email"
-          />
-          <input
-            className="auth-modal__input"
-            type="password"
-            placeholder="Password"
-            name="password"
-          />
-          <h3 className="auth-modal__forgot">Forgot your password?</h3>
-          <button className="auth-modal__button" type="submit">
-            Log In
-          </button>
-          <p className="auth-modal__toggle-text">
-            Don’t have an account?{" "}
-            <button
-              className="auth-modal__toggle-button"
-              type="button"
-              onClick={toggle}
-            >
-              Create account
+        {isLogin ? (
+          <form className="auth-modal__form" onSubmit={handleSubmit}>
+            <h1 className="auth-modal__title">Login</h1>
+            <h3 className="auth-modal__subtitle">
+              Please login using account details below.
+            </h3>
+            <input
+              className="auth-modal__input"
+              type="text"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className="auth-modal__input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <h3 className="auth-modal__forgot">Forgot your password?</h3>
+            <button className="auth-modal__button" type="submit">
+              Log In
             </button>
-          </p>
-        </form>
-      ) : (
-        <form className="auth-modal__form auth-modal__form--signup">
-          <h1 className="auth-modal__title">Create Account</h1>
-          <h3 className="auth-modal__subtitle">
-            Please provide correct information.
-          </h3>
-          <input
-            className="auth-modal__input"
-            type="text"
-            placeholder="Email Address"
-            name="email"
-          />
-          <input
-            className="auth-modal__input"
-            type="password"
-            placeholder="Password"
-            name="password"
-          />
-          <button className="auth-modal__button" type="submit">
-            Create Account
-          </button>
-          <p className="auth-modal__toggle-text">
-            Already have an account?{" "}
-            <button
-              className="auth-modal__toggle-button"
-              type="button"
-              onClick={toggle}
-            >
-              Log in
+            <p className="auth-modal__toggle-text">
+              Don’t have an account?{" "}
+              <button
+                className="auth-modal__toggle-button"
+                type="button"
+                onClick={toggle}
+              >
+                Create account
+              </button>
+            </p>
+          </form>
+        ) : (
+          <form className="auth-modal__form" onSubmit={handleSubmit}>
+            <h1 className="auth-modal__title">Create Account</h1>
+            <h3 className="auth-modal__subtitle">
+              Please provide correct information.
+            </h3>
+            <input
+              className="auth-modal__input"
+              type="text"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className="auth-modal__input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className="auth-modal__button" type="submit">
+              Create Account
             </button>
-          </p>
-        </form>
-      )}
+            <p className="auth-modal__toggle-text">
+              Already have an account?{" "}
+              <button
+                className="auth-modal__toggle-button"
+                type="button"
+                onClick={toggle}
+              >
+                Log in
+              </button>
+            </p>
+          </form>
+        )}
+      </div>
     </div>
   );
 };
