@@ -6,6 +6,8 @@ type AuthProps = {
   onClose: () => void;
 };
 
+export let passwordValue = "";
+
 const Auth = ({ isVisible, onClose }: AuthProps) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
@@ -42,9 +44,17 @@ const Auth = ({ isVisible, onClose }: AuthProps) => {
     }
   };
 
+  const sendingToServer = () => {
+  passwordValue = password;
+  console.log("Password for export:", passwordValue);
+};
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     validation(password);
+    if (validation(password)) {
+      sendingToServer();
+    }
   };
 
   return (
