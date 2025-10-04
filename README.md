@@ -339,3 +339,90 @@ export const props: Slide[] = [
 ### The Next button -> scrolls to the next slide.
 
 ### The carousel is cyclic: when it reaches the end or the beginning, it returns to the opposite slide.
+
+# Node.js Static File Server
+
+This is a simple HTTP server on **Node.js** that serves static files from the frontend assembly (for example, ``React'' or ``Vanilla JS'').
+
+## Features
+
+* Maintenance of HTML, CSS, JS and images.
+* Support **index.html** for folders.
+* Handling 404 errors when the file does not exist.
+* Protection against **Path Traversal** attacks.
+* Logging of each request with a response code.
+
+## Installation and launch
+
+1. Clone the project and install Node.js (version ≥ 18).
+2. Collect the frontend (for example, `React`) in the `client/dist` folder.
+3. Start the server:
+
+```bash
+node server.js
+```
+
+4. Open in the browser:
+
+```
+http://127.0.0.1:8000
+```
+
+## Configuration
+
+```js
+const PORT = 8000; // server port
+const CLIENT_PATH = path.join(__dirname, "../client/dist"); // path to building the frontend
+```
+
+## MIME types
+
+The server automatically determines the MIME type based on the file extension:
+
+```js
+const MIME_TYPES = { 
+".html": "text/html; charset=UTF-8", 
+".js": "application/javascript; charset=UTF-8", 
+".css": "text/css", 
+".png": "image/png", 
+".jpg": "image/jpeg", 
+".svg": "image/svg+xml", 
+".ico": "image/x-icon", 
+".tsx": "text/plain; charset=UTF-8",
+};
+```
+
+If the extension is unknown, `text/html' is used.
+
+## Server logic
+
+1. Gets the request URL.
+2. Forms the path to the file in the assembly folder.
+3. Checks for the existence of the file and prevents access to parent directories.
+4. If the file is found, it returns it with the correct MIME type.
+5. If not - returns `404.html`.
+6. In case of errors, `500 Server Error' is returned.
+
+An example of a log in the console:
+
+```
+GET / 200
+GET /main.js 200
+GET /unknown 404
+```
+
+## project structure
+
+```
+project/
+│
+├─ client/
+│ └─ dist/
+│ ├─ index.html
+│ ├─ main.js
+│ ├─ styles.css
+│ └─ 404.html
+│
+└─ server/ 
+└─ server.js
+```
