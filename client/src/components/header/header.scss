@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
 
-
 @mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
   display: flex;
   flex-direction: $direction;
@@ -33,6 +32,7 @@
   background-color: black;
   width: 100%;
   height: 200px;
+  flex-wrap: wrap;
 
   &__burger-btn {
     color: white;
@@ -74,16 +74,20 @@
   &__menu {
     display: none;
     @include flex(row, space-between, center, 20px);
+    z-index: 1000;
+    flex-wrap: wrap;
     background-color: black;
-    padding: 20px;
 
     &--open {
+      z-index: 1000;
       display: flex;
+      flex-wrap: wrap;
       @include fadeIn();
     }
   }
 
   &__logo {
+    flex-wrap: wrap;
     @include flex(row, flex-start, center, 10px);
 
     &-img {
@@ -99,6 +103,7 @@
   }
 
   &__nav-list {
+    flex-wrap: wrap;
     @include flex(row, flex-start, center, 20px);
     list-style: none;
     padding: 0;
@@ -151,6 +156,82 @@
 
     &:hover {
       transform: scale(1.1);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    height: auto;
+    padding: 20px;
+
+    &__logo-title {
+      font-size: 24px;
+    }
+
+    &__search-input {
+      width: 160px;
+    }
+
+    &__nav-list {
+      gap: 15px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+
+    &__logo {
+      justify-content: center;
+    }
+
+    &__menu {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    &__search-input {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 10px;
+    }
+
+    &__icons {
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px;
+
+    &__logo-title {
+      font-size: 20px;
+    }
+
+    &__burger-btn {
+      width: 30px;
+      height: 24px;
+    }
+
+    &__nav-link {
+      font-size: 14px;
+    }
+
+    &__search-input {
+      width: 100%;
+    }
+
+    &__icon img {
+      width: 20px;
+      height: 20px;
     }
   }
 }
