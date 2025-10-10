@@ -1,0 +1,292 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #06060b 0%, #090913 100%);
+  transform: translateX(-100%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 30px 20px;
+  z-index: 1000;
+  overflow-y: auto;
+  color: #e0e0ff;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+
+  &.open {
+    transform: translateX(0);
+    opacity: 1;
+    animation: sidebarFadeIn 1.4s ease forwards;
+  }
+
+  @keyframes sidebarFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px);
+      filter: blur(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+      filter: blur(0);
+    }
+  }
+
+  &__content {
+    max-width: 1280px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInContent 1.6s ease forwards;
+    animation-delay: 0.3s;
+
+    @keyframes fadeInContent {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 15px;
+    opacity: 0;
+    animation: fadeInSoft 1.2s ease forwards;
+    animation-delay: 0.5s;
+
+    @keyframes fadeInSoft {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #00f0ff;
+      text-shadow: 0 0 12px #00ffff;
+      transition: 0.3s ease;
+      animation: glowPulse 3s ease-in-out infinite alternate;
+    }
+
+    p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      width: 260px;
+      height: 60px;
+      resize: none;
+      padding: 12px;
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      border-radius: 12px;
+      background: rgba(15, 15, 25, 0.8);
+      color: #00ffff;
+      font-family: "Fira Code", monospace;
+      transition: 0.4s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+
+      &:focus {
+        border-color: #ff00c8;
+        box-shadow: 0 0 25px rgba(255, 0, 200, 0.5);
+        background: rgba(25, 25, 40, 0.95);
+      }
+    }
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeInSoft 1.4s ease forwards;
+    animation-delay: 0.8s;
+
+    .filter-block {
+      background: rgba(12, 12, 22, 0.95);
+      border-radius: 14px;
+      padding: 18px;
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+      transition: all 0.4s ease;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+        border-color: #ff00c8;
+      }
+
+      h1 {
+        font-size: 1.05rem;
+        color: #00f0ff;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px #00ffff;
+      }
+
+      li {
+        list-style: none;
+        margin: 8px 0;
+        color: #cfcfcf;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+          color: #ff00c8;
+          transform: translateX(6px);
+          text-shadow: 0 0 8px #ff00c8;
+        }
+      }
+    }
+  }
+
+  .products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 30px;
+    opacity: 0;
+    animation: fadeInSoft 1.4s ease forwards;
+    animation-delay: 1.1s;
+  }
+
+  .product-card {
+    background: linear-gradient(160deg, #0d0d17, #080812);
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+    }
+
+    .menu {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 10px;
+
+      a {
+        background: rgba(0, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: linear-gradient(135deg, #00ffff, #ff00c8);
+          transform: scale(1.1) rotate(8deg);
+          box-shadow: 0 0 15px rgba(255, 0, 200, 0.5);
+        }
+
+        img {
+          width: 16px;
+          height: 16px;
+          filter: drop-shadow(0 0 4px #00ffff);
+        }
+      }
+    }
+
+    .product-img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      margin: 15px 0;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      transition: all 0.4s ease;
+
+      &:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
+      }
+    }
+
+    .info {
+      text-align: center;
+
+      h1 {
+        font-size: 1rem;
+        color: #00f0ff;
+        text-shadow: 0 0 10px #00ffff;
+      }
+
+      h3 {
+        font-size: 0.9rem;
+        color: #999;
+        margin-top: 4px;
+      }
+
+      .stars {
+        margin: 8px 0;
+        color: #ffb400;
+        text-shadow: 0 0 10px #ffb400;
+      }
+
+      p {
+        font-weight: 700;
+        color: #ff00c8;
+        text-shadow: 0 0 15px #ff00c8;
+        animation: pulsePrice 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes pulsePrice {
+        from {
+          opacity: 0.8;
+        }
+        to {
+          opacity: 1;
+          text-shadow: 0 0 25px #00ffff;
+        }
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff, #ff00c8);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(20, 20, 30, 0.5);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 12px #00ffff, 0 0 22px #00ffff;
+  }
+  100% {
+    text-shadow: 0 0 25px #ff00c8, 0 0 45px #00ffff;
+  }
+}

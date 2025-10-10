@@ -1,4 +1,3 @@
-
 import laptop from "../../assets/images/products/laptop.svg";
 import headphone from "../../assets/images/products/HeadPhone.svg";
 import motherBoard from "../../assets/images/products/motherBoard.svg";
