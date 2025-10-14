@@ -2,6 +2,7 @@ import logo from "../../assets/images/gamerLogo.svg";
 import badge from "../../assets/images/badge.svg";
 import profile from "../../assets/images/profile.svg";
 import trolley from "../../assets/images/trolley.svg";
+import { Link } from "react-router-dom";
 import "./header.scss";
 import { useState, useEffect } from "react";
 
@@ -53,9 +54,9 @@ const Header = () => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item">
-                <a href="#" className="header__nav-link">
+                <Link to="/" className="header__nav-link">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="header__nav-item">
                 <a href="#" className="header__nav-link">
@@ -63,9 +64,9 @@ const Header = () => {
                 </a>
               </li>
               <li className="header__nav-item">
-                <a href="#" className="header__nav-link">
+                <Link to="/products" className="header__nav-link">
                   Products
-                </a>
+                </Link>
               </li>
               <li className="header__nav-item">
                 <a href="#" className="header__nav-link">
