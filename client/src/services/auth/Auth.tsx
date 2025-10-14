@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import "./auth.scss";
+import { customHookValidation, customHookSending } from "../../ui/customHooks";
 
 type AuthProps = {
   isVisible: boolean;
@@ -17,58 +18,17 @@ const Auth = ({ isVisible, onClose }: AuthProps) => {
 
   const toggle = () => setIsLogin((prev) => !prev);
 
-  const validation = (pas: string) => {
-    const minLength = 12;
-    const errors: string[] = [];
-
-    if (!pas) {
-      alert("Password is empty");
-      return false;
-    }
-
-    if (pas.length < minLength) errors.push("Password is too short");
-    if (!/[A-Z]/.test(pas))
-      errors.push("Must contain at least one uppercase letter");
-    if (!/[a-z]/.test(pas))
-      errors.push("Must contain at least one lowercase letter");
-    if (!/[0-9]/.test(pas)) errors.push("Must contain at least one digit");
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pas))
-      errors.push("Must contain at least one special character");
-
-    if (errors.length > 0) {
-      alert(errors.join("\n"));
-      return false;
-    } else {
-      alert("Password successfully validated!");
-      return true;
-    }
-  };
-
-  const sendingToServer = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/submit-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ password }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send password");
-      alert("Password sent to server successfully!");
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      } else {
-        console.error("Unknown error:", err);
-      }
-      alert("Error while sending data to server.");
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const isValid = validation(password);
+
+    const isValid = customHookValidation(password);
     if (isValid) {
-      sendingToServer();
+      const result = await customHookSending(8000, password);
+      if (result?.success) {
+        alert(result.message || "Password sent to server successfully!");
+      } else {
+        alert(result?.message || "Error while sending data to server.");
+      }
     }
   };
 
