@@ -1,34 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useModal } from "../../ui/useModal";
 import "./modal.scss";
 
 const ModalWindow = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isClosing, setIsClosing] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  const closeModal = () => {
-    setIsClosing(true);
-    setTimeout(() => setIsVisible(false), 300);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        closeModal();
-      }
-    };
-
-    if (isVisible) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isVisible]);
+  const { isVisible, isClosing, modalRef, closeModal } = useModal();
 
   if (!isVisible) return null;
 
