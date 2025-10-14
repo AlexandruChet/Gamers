@@ -1,4 +1,4 @@
-import { useModal } from "../../ui/useModal";
+import { useModal } from "../../logic/useModal";
 import "./modal.scss";
 
 const ModalWindow = () => {

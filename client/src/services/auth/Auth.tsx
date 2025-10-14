@@ -1,6 +1,9 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import {
+  customHookSending,
+  customHookValidation,
+} from "../../logic/customHooks";
 import "./auth.scss";
-import { customHookValidation, customHookSending } from "../../ui/customHooks";
 
 type AuthProps = {
   isVisible: boolean;
