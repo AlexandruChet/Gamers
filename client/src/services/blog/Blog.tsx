@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { latest } from "../../components/dates/BlogData";
+import Info from "./Info";
 import "./Blog.scss";
 
 interface BlogItem {
@@ -10,7 +11,14 @@ interface BlogItem {
   btn: string;
 }
 
-const BlogCard: React.FC<BlogItem> = ({ url, date, headline, text, btn }) => {
+const BlogCard: React.FC<BlogItem & { onReadMore: () => void }> = ({
+  url,
+  date,
+  headline,
+  text,
+  btn,
+  onReadMore,
+}) => {
   return (
     <article className="blog__card">
       <img className="blog__card-image" src={url} alt={headline} />
@@ -18,13 +26,17 @@ const BlogCard: React.FC<BlogItem> = ({ url, date, headline, text, btn }) => {
         <p className="blog__card-date">{date}</p>
         <h2 className="blog__card-headline">{headline}</h2>
         <p className="blog__card-text">{text}</p>
-        <button className="blog__card-btn">{btn}</button>
+        <button className="blog__card-btn" onClick={onReadMore}>
+          {btn}
+        </button>
       </div>
     </article>
   );
 };
 
 const Blog: React.FC = () => {
+  const [showInfo, setShowInfo] = useState<boolean>(false);
+
   return (
     <section className="blog">
       <h1 className="blog__title">Latest Blog Posts</h1>
@@ -37,9 +49,12 @@ const Blog: React.FC = () => {
             headline={item.headline}
             text={item.text}
             btn={item.btn}
+            onReadMore={() => setShowInfo(true)}
           />
         ))}
       </div>
+
+      <Info isVisible={showInfo} onClose={() => setShowInfo(false)} />
     </section>
   );
 };
