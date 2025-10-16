@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
+
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #000;
+  padding: 5% 5% 5% 5%;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+
+  &__subscribe {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .about__brand {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .about__logo {
+        width: 60px;
+        height: auto;
+      }
+
+      .about__title {
+        font-family: "Salsa", cursive;
+        font-size: 2.4rem;
+        color: #fd0054;
+        letter-spacing: 1px;
+      }
+
+      .about__description {
+        font-family: "Montserrat", sans-serif;
+        color: #eaeaea;
+        font-size: 0.95rem;
+        font-style: italic;
+        line-height: 1.6;
+        max-width: 320px;
+      }
+    }
+
+    .about__form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .about__input {
+        flex: 1;
+        padding: 10px 14px;
+        background-color: transparent;
+        border: 1px solid #555;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &::placeholder {
+          color: #aaa;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #fd0054;
+          box-shadow: 0 0 5px #fd0054;
+        }
+      }
+
+      .about__button {
+        background-color: #fd0054;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s;
+
+        &:hover {
+          background-color: #ff2e6c;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  &__links {
+    flex: 1 1 500px;
+    padding-left: 5%;
+
+    .about__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .about__item {
+        flex: 1 1 150px;
+        min-width: 150px;
+
+        .about__heading {
+          color: #fff;
+          font-weight: 700;
+          margin-bottom: 12px;
+          font-size: 1.1rem;
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: #fd0054;
+            border-radius: 1px;
+          }
+        }
+
+        .about__link {
+          color: #eae9e9;
+          font-size: 0.95rem;
+          margin-bottom: 6px;
+          cursor: pointer;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #fd0054;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+
+    &__links {
+      padding-left: 0;
+      width: 100%;
+    }
+
+    .about__list {
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about__form {
+      flex-direction: column;
+
+      .about__input {
+        width: 100%;
+      }
+
+      .about__button {
+        width: 100%;
+      }
+    }
+  }
+}
