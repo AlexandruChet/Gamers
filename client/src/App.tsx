@@ -7,6 +7,7 @@ import Sidebar from "./services/sidebar/Sidebar.tsx";
 import ModalWindow from "./services/modal-window/ModalWindow.tsx";
 import Products from "./Products.tsx";
 import About from "./services/about/About.tsx";
+import Blog from "./services/blog/Blog.tsx"
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Joystick />
               <Features />
               <About/>
+              <Blog/>
             </>
           }
         />
