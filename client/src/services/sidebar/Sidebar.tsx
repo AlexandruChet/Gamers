@@ -4,9 +4,9 @@ import hearth from "../../assets/images/little-icons/hearth.svg";
 import basket from "../../assets/images/little-icons/basket.svg";
 import Laptop from "../../assets/images/products/laptop.svg";
 import anotherLaptop from "../../assets/images/products/another-laptop.svg";
-import LenovoLegion from "../../assets/images/products/Lenovo Legion Core i7 7th .svg";
-import LenovoLegion5Ryzen from "../../assets/images/products/Lenovo Legion 5 Ryzen.svg";
-import LenovoCoreI9 from "../../assets/images/products/Lenovo Core i9.svg";
+import LenovoLegion from "../../assets/images/products/LenovoCorei9.svg";
+import LenovoLegion5Ryzen from "../../assets/images/products/LenovoLegion5Ryzen.svg";
+import LenovoCoreI9 from "../../assets/images/products/LenovoCoreI9.svg";
 import "./Sidebar.scss";
 
 interface ProductCardProps {
@@ -21,54 +21,40 @@ const ProductCard: React.FC<ProductCardProps> = ({
   brand,
   price,
   image,
-}) => (
-  <div className="product-card">
-    <div className="menu">
-      <a>
-        <img src={magnifyingGlass} alt="view" />
-      </a>
-      <a>
-        <img src={hearth} alt="favorite" />
-      </a>
-      <a>
-        <img src={basket} alt="basket" />
-      </a>
-    </div>
-    <img src={image} alt={name} className="product-img" />
-    <div className="info">
-      <h1>{name}</h1>
-      <h3>{brand}</h3>
-      <div className="stars">
-        <button className="special">⭐ ⭐ ⭐ ⭐ ⭐</button>
+}) => {
+  return (
+    <div className="product-card">
+      <div className="menu">
+        <button>
+          <img src={magnifyingGlass} alt="view" />
+        </button>
+        <button>
+          <img src={hearth} alt="favorite" />
+        </button>
+        <button>
+          <img src={basket} alt="basket" />
+        </button>
       </div>
+      <img src={image} alt={name} className="product-img" />
+      <h2>{name}</h2>
+      <h3>{brand}</h3>
+      <p>⭐⭐⭐⭐⭐</p>
       <p>{price}</p>
     </div>
-  </div>
-);
+  );
+};
 
 const Sidebar: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const openSidebar = () => {
-    setIsHidden(false);
-    setIsVisible(true);
-  };
-
-  const closeSidebar = () => {
-    setIsHidden(true);
-    setTimeout(() => {
-      setIsVisible(false);
-      setIsHidden(false);
-    }, 800);
-  };
+  const openSidebar = () => setIsOpen(true);
+  const closeSidebar = () => setIsOpen(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft") openSidebar();
       if (event.key === "Escape" || event.key === "ArrowRight") closeSidebar();
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
@@ -137,14 +123,8 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-  if (!isVisible) return null;
-
   return (
-    <aside
-      className={`sidebar ${isVisible ? "open" : ""} ${
-        isHidden ? "closed" : ""
-      }`}
-    >
+    <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <section className="sidebar__content">
         <header className="sidebar__header">
           <div>
