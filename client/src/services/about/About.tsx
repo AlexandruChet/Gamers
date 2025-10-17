@@ -25,7 +25,7 @@ const About: React.FC = () => {
       }
 
       alert("✅ Email successfully sent!");
-      emailRef.current.value = "";
+      emailRef.current!.value = "";
     } catch (err) {
       console.error("Error sending email:", err);
       alert("❌ Failed to send email. Check console for details.");

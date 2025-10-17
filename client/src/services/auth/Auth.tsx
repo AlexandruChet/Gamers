@@ -26,7 +26,7 @@ const Auth = ({ isVisible, onClose }: AuthProps) => {
 
     const isValid = customHookValidation(password);
     if (isValid) {
-      const result = await customHookSending(8000, password);
+      const result = await customHookSending(3000, password);
       if (result?.success) {
         alert(result.message || "Password sent to server successfully!");
       } else {
