@@ -1,0 +1,98 @@
+.gaming-product {
+  padding: 60px 20px;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+  font-family: "Fira Code", monospace;
+}
+.gaming-product__info {
+  margin-bottom: 50px;
+}
+.gaming-product__info-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.gaming-product__info-item {
+  flex: 1 1 calc(33.333% - 20px);
+  background: #1a1a1a;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gaming-product__info-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+}
+.gaming-product__info-headline {
+  font-size: 1.25rem;
+  color: #ff007f;
+  margin-bottom: 10px;
+}
+.gaming-product__info-text {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+.gaming-product__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+.gaming-product__card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+.gaming-product__card-button {
+  background: linear-gradient(90deg, #ff007f, #ff6600);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.gaming-product__card-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff6600, #ff007f);
+}
+.gaming-product__card-button--active {
+  background: linear-gradient(90deg, #00ff88, #00b3ff);
+}
+.gaming-product__card-content {
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: max-height 0.4s ease, margin-top 0.4s ease;
+}
+.gaming-product__card-content--active {
+  max-height: 500px;
+  margin-top: 20px;
+}
+.gaming-product__card-img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 2px solid #333;
+}
+.gaming-product__card-text {
+  color: #ddd;
+  font-size: 1.1rem;
+  font-weight: 500;
+}/*# sourceMappingURL=Product.css.map */

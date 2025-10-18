@@ -42,6 +42,7 @@ var http = require("http");
 var createHmac = require("node:crypto").createHmac;
 var PORT = Number(process.env.PORT) || 3000;
 var STATIC_PATH = path.join(__dirname, "../../client/dist");
+var toBool = [function () { return true; }, function () { return false; }];
 var MIME_TYPES = {
     html: "text/html; charset=UTF-8",
     css: "text/css",
@@ -93,9 +94,9 @@ var MIME_TYPES = {
     default: "application/octet-stream",
 };
 var prepareFile = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var cleanedUrl, paths, filePath, resolvedPath, pathTraversal, exists, _a, found, streamPath, ext, stream;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var cleanedUrl, paths, filePath, resolvedPath, pathTraversal, exists, found, notFoundPath, fallbackPath, streamPath, stat, ext, stream, forbidden;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 cleanedUrl = url.split("?")[0];
                 paths = [STATIC_PATH, cleanedUrl];
@@ -104,27 +105,45 @@ var prepareFile = function (url) { return __awaiter(void 0, void 0, void 0, func
                 filePath = path.join.apply(path, paths);
                 resolvedPath = path.resolve(filePath);
                 pathTraversal = !resolvedPath.startsWith(STATIC_PATH);
-                exists = false;
-                _b.label = 1;
+                return [4 /*yield*/, fs.promises
+                        .access(resolvedPath)
+                        .then(toBool[0])
+                        .catch(toBool[1])];
             case 1:
-                _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, fs.promises.access(resolvedPath)];
-            case 2:
-                _b.sent();
-                exists = true;
-                return [3 /*break*/, 4];
-            case 3:
-                _a = _b.sent();
-                exists = false;
-                return [3 /*break*/, 4];
-            case 4:
+                exists = _a.sent();
                 found = !pathTraversal && exists;
-                streamPath = found
-                    ? resolvedPath
-                    : path.join(STATIC_PATH, "404.html");
+                notFoundPath = path.join(STATIC_PATH, "404.html");
+                return [4 /*yield*/, fs.promises
+                        .access(notFoundPath)
+                        .then(toBool[0])
+                        .catch(toBool[1])];
+            case 2:
+                fallbackPath = (_a.sent())
+                    ? notFoundPath
+                    : path.join(STATIC_PATH, "index.html");
+                streamPath = found ? resolvedPath : fallbackPath;
+                return [4 /*yield*/, fs.promises.stat(streamPath)];
+            case 3: return [4 /*yield*/, _a.sent()];
+            case 4:
+                stat = _a.sent();
+                console.log(stat.size);
+                if (stat.size > 10 * 1024 * 1024 * 1024) {
+                    throw new Error("File too large");
+                }
                 ext = path.extname(streamPath).substring(1).toLowerCase();
                 stream = fs.createReadStream(streamPath);
-                return [2 /*return*/, { found: found, ext: ext, stream: stream }];
+                console.log("\uD83D\uDCC4 Serving file: ".concat(streamPath, " (").concat(found ? "FOUND" : "NOT FOUND", ")"));
+                forbidden = [
+                    ".env",
+                    ".git",
+                    ".gitignore",
+                    "package.json",
+                    "tsconfig.json",
+                ];
+                if (forbidden.some(function (f) { return resolvedPath.endsWith(f); })) {
+                    throw new Error("Access to forbidden file");
+                }
+                return [2 /*return*/, { found: found, ext: ext, stream: stream, size: stat.size, lastModified: stat.mtime }];
         }
     });
 }); };
@@ -155,6 +174,23 @@ var serverHttp = http.createServer(function (req, res) { return __awaiter(void 0
                             .digest("hex");
                         console.log("🔒 Password hash:", hash);
                         res.writeHead(200, { "Content-Type": "text/plain; charset=UTF-8" });
+                        var savedInfoUser = {
+                            encryptedPassword: "".concat(hash),
+                        };
+                        var pathToFile = "./data/users.json";
+                        var users = [];
+                        if (fs.existsSync(pathToFile)) {
+                            var data = fs.readFileSync(pathToFile, "utf-8");
+                            if (data) {
+                                try {
+                                    users = JSON.parse(data);
+                                }
+                                catch (err) {
+                                    console.error("Error", err);
+                                }
+                            }
+                        }
+                        users.push(savedInfoUser);
                         return res.end("✅ Password received and hashed on the server!");
                     });
                     return [2 /*return*/];

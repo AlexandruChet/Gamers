@@ -2,10 +2,11 @@ const fs = require("fs");
 const path = require("path");
 const http = require("http");
 const { createHmac } = require("node:crypto");
-import { IncomingMessage, ServerResponse } from "http";
+import type { IncomingMessage, ServerResponse } from "http";
 
 const PORT: number = Number(process.env.PORT) || 3000;
 const STATIC_PATH = path.join(__dirname, "../../client/dist");
+const toBool = [(): boolean => true, (): boolean => false];
 
 type MimeTypes = Record<string, string>;
 
@@ -69,23 +70,46 @@ const prepareFile = async (url: string) => {
   const resolvedPath: string = path.resolve(filePath);
   const pathTraversal: boolean = !resolvedPath.startsWith(STATIC_PATH);
 
-  let exists = false;
-  try {
-    await fs.promises.access(resolvedPath);
-    exists = true;
-  } catch {
-    exists = false;
-  }
+  const exists: boolean = await fs.promises
+    .access(resolvedPath)
+    .then(toBool[0])
+    .catch(toBool[1]);
 
-  const found = !pathTraversal && exists;
-  const streamPath = found
-    ? resolvedPath
-    : path.join(STATIC_PATH, "404.html");
+  const found: boolean = !pathTraversal && exists;
+
+  const notFoundPath = path.join(STATIC_PATH, "404.html");
+  const fallbackPath = (await fs.promises
+    .access(notFoundPath)
+    .then(toBool[0])
+    .catch(toBool[1]))
+    ? notFoundPath
+    : path.join(STATIC_PATH, "index.html");
+
+  const streamPath = found ? resolvedPath : fallbackPath;
+  const stat = await await fs.promises.stat(streamPath);
+  console.log(stat.size);
+  if (stat.size > 10 * 1024 * 1024 * 1024) {
+    throw new Error("File too large");
+  }
 
   const ext: string = path.extname(streamPath).substring(1).toLowerCase();
   const stream = fs.createReadStream(streamPath);
+  console.log(
+    `📄 Serving file: ${streamPath} (${found ? "FOUND" : "NOT FOUND"})`
+  );
 
-  return { found, ext, stream };
+  const forbidden: string[] = [
+    ".env",
+    ".git",
+    ".gitignore",
+    "package.json",
+    "tsconfig.json",
+  ];
+  if (forbidden.some((f) => resolvedPath.endsWith(f))) {
+    throw new Error("Access to forbidden file");
+  }
+
+  return { found, ext, stream, size: stat.size, lastModified: stat.mtime };
 };
 
 const serverHttp = http.createServer(
@@ -118,6 +142,29 @@ const serverHttp = http.createServer(
           console.log("🔒 Password hash:", hash);
 
           res.writeHead(200, { "Content-Type": "text/plain; charset=UTF-8" });
+
+          interface save {
+            encryptedPassword: string;
+          }
+          const savedInfoUser: save = {
+            encryptedPassword: `${hash}`,
+          };
+
+          const pathToFile: string = "./data/users.json";
+          let users = [];
+
+          if (fs.existsSync(pathToFile)) {
+            const data = fs.readFileSync(pathToFile, "utf-8");
+            if (data) {
+              try {
+                users = JSON.parse(data);
+              } catch (err: any) {
+                console.error("Error", err);
+              }
+            }
+          }
+          users.push(savedInfoUser);
+
           return res.end("✅ Password received and hashed on the server!");
         });
 

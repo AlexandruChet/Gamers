@@ -1,0 +1,100 @@
+button {
+  padding: 15px;
+  background-color: #fb2e86;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+button button:hover {
+  background-color: #e0267a;
+}
+
+.auth-modal {
+  background-color: white;
+  z-index: 100000;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+.auth-modal:hover {
+  opacity: 0.95;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.auth-modal__close {
+  background-color: #fb2e86;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+.auth-modal__close:hover {
+  background-color: #e0267a;
+}
+.auth-modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+}
+.auth-modal__title {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.auth-modal__subtitle {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.auth-modal__input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+.auth-modal__input:focus {
+  outline: none;
+  border-color: #fb2e86;
+}
+.auth-modal__forgot {
+  font-size: 14px;
+  color: #fb2e86;
+  cursor: pointer;
+  text-align: right;
+  margin: 0;
+}
+.auth-modal__toggle-text {
+  text-align: center;
+  font-size: 14px;
+}
+.auth-modal__toggle-text button {
+  background: none;
+  border: none;
+  color: #fb2e86;
+  cursor: pointer;
+  font-weight: bold;
+}
+.auth-modal__toggle-text button:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=auth.css.map */
