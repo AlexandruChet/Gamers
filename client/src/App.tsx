@@ -6,6 +6,7 @@ import Features from "./services/features/Features.tsx";
 import Sidebar from "./services/sidebar/Sidebar.tsx";
 import ModalWindow from "./services/modal-window/ModalWindow.tsx";
 import Products from "./Products.tsx";
+import Shopping from "./Shopping.tsx";
 import About from "./services/about/About.tsx";
 import Blog from "./services/blog/Blog.tsx"
 
@@ -30,6 +31,7 @@ const App = () => {
         />
 
         <Route path="/products" element={<Products />} />
+        <Route path="/shop" element={<Shopping />} />
       </Routes>
 
       <Footer />
