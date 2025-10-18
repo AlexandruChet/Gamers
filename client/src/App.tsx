@@ -23,8 +23,8 @@ const App = () => {
               <Sidebar />
               <Joystick />
               <Features />
-              <About/>
               <Blog/>
+              <About/>
             </>
           }
         />
