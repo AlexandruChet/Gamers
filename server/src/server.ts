@@ -80,7 +80,7 @@ const prepareFile = async (url: string) => {
   const found = !pathTraversal && exists;
   const streamPath = found
     ? resolvedPath
-    : path.join(STATIC_PATH, "index.html");
+    : path.join(STATIC_PATH, "404.html");
 
   const ext: string = path.extname(streamPath).substring(1).toLowerCase();
   const stream = fs.createReadStream(streamPath);
