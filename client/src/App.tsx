@@ -8,7 +8,8 @@ import ModalWindow from "./services/modal-window/ModalWindow.tsx";
 import Products from "./Products.tsx";
 import Shopping from "./Shopping.tsx";
 import About from "./services/about/About.tsx";
-import Blog from "./services/blog/Blog.tsx"
+import Blog from "./services/blog/Blog.tsx";
+import GamesOffer from "./services/games-offer/GamesOffer.tsx";
 
 const App = () => {
   return (
@@ -24,8 +25,9 @@ const App = () => {
               <Sidebar />
               <Joystick />
               <Features />
-              <Blog/>
-              <About/>
+              <Blog />
+              <GamesOffer />
+              <About />
             </>
           }
         />
