@@ -42,12 +42,14 @@ var http = require("http");
 var createHmac = require("crypto").createHmac;
 var PORT = Number(process.env.PORT) || 3000;
 var STATIC_PATH = path.join(__dirname, "../../client/dist");
+var toBool = [function () { return true; }, function () { return false; }];
 var MIME_TYPES = {
     html: "text/html; charset=UTF-8",
     css: "text/css",
     js: "text/javascript",
     mjs: "text/javascript",
     json: "application/json",
+    xml: "application/xml",
     png: "image/png",
     jpg: "image/jpeg",
     jpeg: "image/jpeg",
@@ -55,11 +57,42 @@ var MIME_TYPES = {
     webp: "image/webp",
     svg: "image/svg+xml",
     ico: "image/x-icon",
+    bmp: "image/bmp",
+    avif: "image/avif",
+    mp3: "audio/mpeg",
+    wav: "audio/wav",
+    ogg: "audio/ogg",
+    m4a: "audio/mp4",
+    flac: "audio/flac",
+    mp4: "video/mp4",
+    webm: "video/webm",
+    ogv: "video/ogg",
+    avi: "video/x-msvideo",
+    mov: "video/quicktime",
+    mkv: "video/x-matroska",
+    pdf: "application/pdf",
+    doc: "application/msword",
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    xls: "application/vnd.ms-excel",
+    xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ppt: "application/vnd.ms-powerpoint",
+    pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    txt: "text/plain",
+    ttf: "font/ttf",
+    otf: "font/otf",
+    woff: "font/woff",
+    woff2: "font/woff2",
+    eot: "application/vnd.ms-fontobject",
+    zip: "application/zip",
+    rar: "application/vnd.rar",
+    "7z": "application/x-7z-compressed",
+    tar: "application/x-tar",
+    gz: "application/gzip",
+    csv: "text/csv",
+    wasm: "application/wasm",
+    exe: "application/vnd.microsoft.portable-executable",
     default: "application/octet-stream",
 };
-// --- Helper to convert promise result to boolean ---
-var toBool = [function () { return true; }, function () { return false; }];
-// --- Prepare static file ---
 var prepareFile = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var cleanedUrl, paths, filePath, resolvedPath, pathTraversal, exists, found, notFoundPath, fallbackPath, streamPath, stat, ext, stream, forbidden;
     return __generator(this, function (_a) {
@@ -110,7 +143,6 @@ var prepareFile = function (url) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
-// --- Read request body safely ---
 var getRequestBody = function (req) {
     return new Promise(function (resolve, reject) {
         var body = "";
@@ -119,7 +151,6 @@ var getRequestBody = function (req) {
         req.on("error", function (err) { return reject(err); });
     });
 };
-// --- HTTP server ---
 var serverHttp = http.createServer(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var body, formData, password, secret, hash, pathToFile, users, data, err_1, file, statusCode, mimeType, error_1;
     return __generator(this, function (_a) {
@@ -131,7 +162,6 @@ var serverHttp = http.createServer(function (req, res) { return __awaiter(void 0
                     res.end(JSON.stringify({ success: false, message: "Bad Request" }));
                     return [2 /*return*/];
                 }
-                // --- CORS headers ---
                 res.setHeader("Access-Control-Allow-Origin", "*");
                 res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
                 res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -148,11 +178,16 @@ var serverHttp = http.createServer(function (req, res) { return __awaiter(void 0
                 password = formData.get("password");
                 if (!password) {
                     res.writeHead(400, { "Content-Type": "application/json" });
-                    res.end(JSON.stringify({ success: false, message: "❌ No password received." }));
+                    res.end(JSON.stringify({
+                        success: false,
+                        message: "❌ No password received.",
+                    }));
                     return [2 /*return*/];
                 }
                 secret = "my-secret-key";
-                hash = createHmac("sha256", secret).update(password).digest("hex");
+                hash = createHmac("sha256", secret)
+                    .update(password)
+                    .digest("hex");
                 console.log("🔒 Password hash:", hash);
                 pathToFile = "./data/users.json";
                 users = [];
@@ -174,10 +209,12 @@ var serverHttp = http.createServer(function (req, res) { return __awaiter(void 0
             case 6:
                 _a.sent();
                 res.writeHead(200, { "Content-Type": "application/json" });
-                res.end(JSON.stringify({ success: true, message: "✅ Password received and hashed on the server!" }));
+                res.end(JSON.stringify({
+                    success: true,
+                    message: "✅ Password received and hashed on the server!",
+                }));
                 return [2 /*return*/];
             case 7:
-                // --- Ignore favicon ---
                 if (req.url === "/favicon.ico") {
                     res.writeHead(204);
                     res.end();

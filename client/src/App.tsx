@@ -10,6 +10,7 @@ import Shopping from "./Shopping.tsx";
 import About from "./services/about/About.tsx";
 import Blog from "./services/blog/Blog.tsx";
 import GamesOffer from "./services/games-offer/GamesOffer.tsx";
+import Contact from "./Contact.tsx";
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
 
         <Route path="/products" element={<Products />} />
         <Route path="/shop" element={<Shopping />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       <Footer />

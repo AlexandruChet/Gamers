@@ -69,9 +69,9 @@ const Header = () => {
                 </Link>
               </li>
               <li className="header__nav-item">
-                <a href="#" className="header__nav-link">
-                  Blog
-                </a>
+                <Link to="/contact" className="header__nav-link">
+                  Contact
+                </Link>
               </li>
               <li className="header__nav-item">
                 <Link to="/shop" className="header__nav-link">
@@ -80,7 +80,7 @@ const Header = () => {
               </li>
               <li className="header__nav-item">
                 <a href="#" className="header__nav-link">
-                  Contact
+                  Blog
                 </a>
               </li>
             </ul>
