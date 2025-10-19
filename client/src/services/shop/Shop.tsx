@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ShopObj } from "../../components/dates/ShopData";
 import Auth from "../auth/Auth";
+import ShopModal from "./shop-modal/ShopModal";
 import "./Shop.scss";
 
 interface ShopInterface {
@@ -30,6 +31,7 @@ const ShopItem: React.FC<ShopInterface> = ({
 
 const Shop: React.FC = () => {
   const [showAuth, setShowAuth] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <section className="shop">
@@ -57,13 +59,19 @@ const Shop: React.FC = () => {
 
         <div className="shop__address">
           <h3>Shopping Address</h3>
-          <form className="shop__form">
+          <form className="shop__form" onSubmit={(e) => e.preventDefault()}>
             <input type="text" placeholder="First Name" />
             <input type="text" placeholder="Last Name" />
             <input type="text" placeholder="Address" />
             <input type="text" placeholder="City" />
-            <button type="submit">Continue Shopping</button>
+            <button type="button" onClick={() => setShowModal(true)}>
+              Continue Shopping
+            </button>
           </form>
+          <ShopModal
+            isVisible={showModal}
+            closeModal={() => setShowModal(false)}
+          />
         </div>
 
         <div className="shop__items">

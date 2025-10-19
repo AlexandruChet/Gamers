@@ -88,7 +88,7 @@ const prepareFile = async (url: string) => {
   const streamPath = found ? resolvedPath : fallbackPath;
   const stat = await await fs.promises.stat(streamPath);
   console.log(stat.size);
-  if (stat.size > 10 * 1024 * 1024 * 1024) {
+  if (stat.size > 15 * 1024 * 1024) {
     throw new Error("File too large");
   }
 
