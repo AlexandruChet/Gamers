@@ -11,8 +11,22 @@ import About from "./services/about/About.tsx";
 import Blog from "./services/blog/Blog.tsx";
 import GamesOffer from "./services/games-offer/GamesOffer.tsx";
 import Contact from "./Contact.tsx";
+import Captcha from "./components/captcha/Captcha.tsx";
+import { useState, useEffect } from "react";
 
 const App = () => {
+  const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
+  const [captchaPassed, setCaptchaPassed] = useState<boolean>(false);
+
+  useEffect(() => {
+    setShowCaptcha(true);
+  }, []);
+
+  const handleCaptchaClose = () => {
+    setShowCaptcha(false);
+    setCaptchaPassed(true);
+  };
+
   return (
     <Router>
       <Header />
@@ -22,7 +36,10 @@ const App = () => {
           path="/"
           element={
             <>
-              <ModalWindow />
+              {showCaptcha && (
+                <Captcha isVisible={showCaptcha} onClose={handleCaptchaClose} />
+              )}
+              {captchaPassed && <ModalWindow />}
               <Sidebar />
               <Joystick />
               <Features />

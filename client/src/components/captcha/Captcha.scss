@@ -1,0 +1,207 @@
+:root {
+  --captcha-bg: #1a1a1a;
+  --captcha-overlay: rgba(0, 0, 0, 0.85);
+  --captcha-display-bg: #111;
+  --captcha-primary: #00ffea;
+  --captcha-primary-hover: #00ffd5;
+  --captcha-danger: #ff0055;
+  --captcha-danger-hover: #ff3388;
+  --captcha-text: #00ffea;
+  --captcha-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea, 0 0 60px #00ffea;
+  --captcha-glow: 0 0 8px #00ffea, 0 0 16px #00ffea;
+}
+
+.captcha-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--captcha-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.captcha-content {
+  background: var(--captcha-bg);
+  padding: 2rem 2.5rem;
+  border-radius: 15px;
+  box-shadow: var(--captcha-shadow);
+  text-align: center;
+  min-width: 320px;
+  max-width: 90%;
+  animation: neonSlide 0.5s ease-out;
+  border: 2px solid var(--captcha-primary);
+}
+
+.captcha-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--captcha-text);
+  text-shadow: 0 0 8px #00ffea, 0 0 16px #00ffea;
+  animation: glowText 1.5s infinite alternate;
+}
+
+.captcha-display {
+  font-family: monospace;
+  font-size: 2rem;
+  letter-spacing: 6px;
+  background: var(--captcha-display-bg);
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  user-select: none;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px #00ffea inset;
+  color: #00ffea;
+}
+
+.captcha-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.captcha-input {
+  padding: 0.8rem;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 8px;
+  border: 1px solid #00ffea;
+  background: #111;
+  color: #00ffea;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 8px #00ffea inset;
+}
+
+.captcha-input:focus {
+  outline: none;
+  border-color: #00ffd5;
+  box-shadow: 0 0 12px #00ffd5, 0 0 20px #00ffd5 inset;
+  animation: glowInput 1s infinite alternate;
+  background: #111;
+  color: #00ffd5;
+}
+
+.captcha-buttons {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.captcha-submit,
+.captcha-refresh {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: var(--captcha-glow);
+}
+
+.captcha-submit {
+  background-color: var(--captcha-primary);
+  color: #111;
+}
+
+.captcha-submit:hover {
+  background-color: var(--captcha-primary-hover);
+  box-shadow: 0 0 15px #00ffd5, 0 0 30px #00ffd5;
+  transform: scale(1.1);
+}
+
+.captcha-refresh {
+  background-color: var(--captcha-danger);
+  color: #111;
+}
+
+.captcha-refresh:hover {
+  background-color: var(--captcha-danger-hover);
+  box-shadow: 0 0 15px #ff3388, 0 0 30px #ff3388;
+  transform: scale(1.1);
+}
+
+.captcha-message {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #ff33cc;
+  animation: neonFlash 1s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes neonSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 8px #00ffea, 0 0 16px #00ffea;
+  }
+  to {
+    text-shadow: 0 0 20px #00ffd5, 0 0 40px #00ffd5;
+  }
+}
+
+@keyframes glowInput {
+  from {
+    box-shadow: 0 0 8px #00ffd5 inset;
+  }
+  to {
+    box-shadow: 0 0 20px #00ffea inset, 0 0 15px #00ffd5;
+  }
+}
+
+@keyframes neonFlash {
+  from {
+    color: #ff33cc;
+    text-shadow: 0 0 5px #ff33cc;
+  }
+  to {
+    color: #ff66ee;
+    text-shadow: 0 0 20px #ff66ee, 0 0 40px #ff66ee;
+  }
+}
+
+@media (max-width: 400px) {
+  .captcha-content {
+    padding: 1.5rem 1.8rem;
+  }
+  .captcha-display {
+    font-size: 1.6rem;
+    letter-spacing: 4px;
+  }
+  .captcha-input {
+    font-size: 0.95rem;
+  }
+  .captcha-submit,
+  .captcha-refresh {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+}
