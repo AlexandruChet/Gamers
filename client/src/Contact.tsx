@@ -1,6 +1,7 @@
 import Sidebar from "./services/sidebar/Sidebar";
 import About from "./services/about/About";
 import GitHubContact from "./services/github-contact/GitHub";
+import GamesOffer from "./services/games-offer/GamesOffer";
 
 const Contact: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const Contact: React.FC = () => {
           { name: "File Manager", repo: "File-Manager", alt: "File Manager" },
         ]}
       />
-
+      <GamesOffer/>
       <About />
     </>
   );

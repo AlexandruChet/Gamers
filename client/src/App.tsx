@@ -14,6 +14,7 @@ import Contact from "./Contact.tsx";
 import Captcha from "./components/captcha/Captcha.tsx";
 import BlogApp from "./BlogApp.tsx";
 import { useState, useEffect } from "react";
+import Pages from "./Pages.tsx";
 
 const App = () => {
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
@@ -55,6 +56,7 @@ const App = () => {
         <Route path="/shop" element={<Shopping />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<BlogApp />} />
+        <Route path="/pages" element={<Pages />} />
       </Routes>
 
       <Footer />
