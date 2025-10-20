@@ -1,0 +1,170 @@
+@mixin flex($dir: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin size($w, $h: $w) {
+  width: $w;
+  height: $h;
+}
+
+@mixin neon-btn(
+  $bg: #ff0000,
+  $color: #fff,
+  $glow: 0 0 10px #ff0000,
+  $padding: 12px 25px,
+  $radius: 12px
+) {
+  padding: $padding;
+  border: none;
+  border-radius: $radius;
+  background: $bg;
+  color: $color;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: $glow, 0 0 20px $bg;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 20px $bg, 0 0 40px lighten($bg, 20%);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@mixin neon-card($bg: #111, $radius: 15px, $shadow: 0 0 20px #ff0000) {
+  background: $bg;
+  border-radius: $radius;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  border: 1px solid #ff0000;
+  transition: all 0.3s ease;
+  box-shadow: $shadow;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000 inset;
+  }
+}
+
+@mixin neon-text(
+  $size: 14px,
+  $weight: 400,
+  $color: #fff,
+  $glow: 0 0 5px #ff0000
+) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  text-shadow: $glow;
+}
+
+.card-search {
+  padding: 50px 20px;
+  @include flex(column, center, flex-start, 30px);
+  background: #000;
+  color: #fff;
+  animation: fadeIn 1s ease forwards;
+
+  &__controls {
+    @include flex(column, center, center, 15px);
+    width: 100%;
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+    }
+
+    & > input {
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid #ff0000;
+      background: #111;
+      color: #fff;
+      font-size: 14px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 0 10px #ff0000;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: rgba(255, 0, 0, 0.5);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000 inset;
+      }
+    }
+
+    & > button {
+      @include neon-btn(#ff0000, #000);
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (min-width: 1400px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.card {
+  @include neon-card;
+
+  &__img {
+    @include size(100px);
+    object-fit: contain;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1) rotate(3deg);
+      filter: drop-shadow(0 0 10px #ff0000);
+    }
+  }
+
+  &__title {
+    @include neon-text(18px, 700, #ff0000, 0 0 8px #ff0000);
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    @include neon-text(14px, 400, #fff, 0 0 5px #ff0000);
+    margin-bottom: 15px;
+  }
+
+  &__button {
+    @include neon-btn(#ff0000, #000, 0 0 10px #ff0000);
+    margin-top: 10px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

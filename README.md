@@ -34,6 +34,8 @@ App/
 ├─ client/
 │ ├─ dist/
 │ │ ├─ assets/
+│ │ ├─ errorCss.css
+│ │ ├─ 404.html
 │ │ └─ index.html
 │ ├─ node_modules/
 │ └─ src/
