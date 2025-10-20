@@ -12,6 +12,7 @@ import Blog from "./services/blog/Blog.tsx";
 import GamesOffer from "./services/games-offer/GamesOffer.tsx";
 import Contact from "./Contact.tsx";
 import Captcha from "./components/captcha/Captcha.tsx";
+import BlogApp from "./BlogApp.tsx";
 import { useState, useEffect } from "react";
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/shop" element={<Shopping />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<BlogApp />} />
       </Routes>
 
       <Footer />

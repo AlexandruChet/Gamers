@@ -154,7 +154,7 @@ const serverHttp = http.createServer(
         const hash = createHmac("sha256", secret)
           .update(password)
           .digest("hex");
-        console.log("🔒 Password hash:", hash);
+        console.log("🔒 Password hashed:");
 
         const pathToFile = "./data/users.json";
         let users: any[] = [];
