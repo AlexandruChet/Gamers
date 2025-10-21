@@ -45,7 +45,6 @@ const CardSearch: React.FC = () => {
         <ShopModal
           isVisible={true}
           closeModal={() => setSelectedCard(null)}
-          card={selectedCard}
         />
       )}
 
