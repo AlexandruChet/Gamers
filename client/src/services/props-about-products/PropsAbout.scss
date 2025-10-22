@@ -1,0 +1,178 @@
+.cyberProductsZone_999 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  gap: 5rem;
+  background: radial-gradient(circle at center, #0b0e1a 0%, #000108 100%);
+  color: #fff;
+  font-family: "Orbitron", sans-serif;
+  overflow: hidden;
+}
+
+.warpContainer_404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.glxProductMagic_1 {
+  text-align: center;
+  background: rgba(15, 20, 40, 0.6);
+  padding: 3rem 4rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+  transition: all 0.4s ease;
+  max-width: 700px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 45px rgba(0, 255, 255, 0.45);
+  }
+}
+
+.neonPulseText_777 {
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  color: #00ffff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px #00ffff, 0 0 20px #00ccff, 0 0 50px #0099ff;
+  animation: pulseNeon_777 2s infinite alternate;
+}
+
+@keyframes pulseNeon_777 {
+  0% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 15px #00ffff, 0 0 60px #00ccff;
+  }
+}
+
+.techShadowHeadline_404 {
+  font-size: 1.6rem;
+  color: #00b3ff;
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 5px #007bff;
+}
+
+.metaDescZone_2025 {
+  color: #b8b8b8;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.hyperTechButton_9 {
+  background: linear-gradient(90deg, #00ffff, #0099ff);
+  color: #0b0e1a;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(90deg, #00ccff, #0066ff);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  }
+}
+
+.hyperTechFrame_2025 {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.glowInfoText_666 {
+  font-size: 1.2rem;
+  color: #9efeff;
+  text-align: center;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.ultraPixelImage_808 {
+  width: 280px;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+  transition: transform 0.4s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.ultraDisplay_303 {
+  text-align: center;
+  background: rgba(0, 20, 40, 0.5);
+  padding: 2.5rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 50px rgba(0, 200, 255, 0.3);
+  max-width: 700px;
+  animation: fadeSlideUp_909 0.8s ease forwards;
+}
+
+@keyframes fadeSlideUp_909 {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cyberImage_101 {
+  width: 320px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.holoText_222 {
+  color: #9efeff;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px #00ffff;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .glxProductMagic_1 {
+    padding: 2rem;
+  }
+
+  .neonPulseText_777 {
+    font-size: 2rem;
+  }
+
+  .ultraPixelImage_808,
+  .cyberImage_101 {
+    width: 230px;
+  }
+
+  .metaDescZone_2025,
+  .holoText_222 {
+    font-size: 0.95rem;
+  }
+
+  .hyperTechButton_9 {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+  }
+}

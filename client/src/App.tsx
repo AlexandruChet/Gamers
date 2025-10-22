@@ -15,6 +15,7 @@ import Captcha from "./components/captcha/Captcha.tsx";
 import BlogApp from "./BlogApp.tsx";
 import { useState, useEffect } from "react";
 import Pages from "./Pages.tsx";
+import CardSearch from "./services/propsCards/CardsSearch.tsx";
 
 const App = () => {
   const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
@@ -47,6 +48,7 @@ const App = () => {
               <Features />
               <Blog />
               <GamesOffer />
+              <CardSearch />
               <About />
             </>
           }
