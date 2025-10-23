@@ -1,0 +1,152 @@
+$g-bg: linear-gradient(135deg, #0a0a0f, #1b1b29);
+$g-accent: #00ffe5;
+$g-accent2: #8f8fff;
+$g-text: #bcbcff;
+$g-font: "Orbitron", sans-serif;
+$g-card-bg: #121225;
+$g-border: #2a2a4d;
+
+@mixin text-style($size, $color, $weight: normal, $align: left, $shadow: none) {
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+  text-align: $align;
+  text-shadow: $shadow;
+}
+
+@mixin center-block($max: none, $mb: 0) {
+  max-width: $max;
+  margin: 0 auto $mb;
+}
+
+@mixin button-style(
+  $bg,
+  $color,
+  $border,
+  $hover-bg,
+  $hover-color,
+  $hover-shadow
+) {
+  background: $bg;
+  color: $color;
+  border: 2px solid $border;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  &:hover {
+    background: $hover-bg;
+    color: $hover-color;
+    box-shadow: 0 0 20px $hover-shadow;
+  }
+}
+
+@mixin flex-center($dir: row, $gap: 0) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin card-style($w, $bg, $border, $shadow, $hover-shadow) {
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: 12px;
+  width: $w;
+  text-align: center;
+  padding: 20px;
+  transition: 0.3s;
+  box-shadow: 0 0 10px $shadow;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px $hover-shadow;
+  }
+}
+
+.gshop__section {
+  padding: 50px;
+  background: $g-bg;
+  color: #e3e3e3;
+  font-family: $g-font;
+
+  .gshop__header {
+    text-align: center;
+    margin-bottom: 50px;
+
+    .gshop__title {
+      @include text-style(2.6rem, $g-accent, bold, center, 0 0 12px $g-accent);
+      margin-bottom: 10px;
+    }
+
+    .gshop__subtitle {
+      @include text-style(1.5rem, $g-accent2, normal, center);
+      margin-bottom: 15px;
+    }
+
+    .gshop__description {
+      @include center-block(600px, 25px);
+      line-height: 1.6;
+      color: $g-text;
+    }
+
+    .gshop__btn {
+      @include button-style(
+        #11112a,
+        $g-accent,
+        $g-accent,
+        $g-accent,
+        #11112a,
+        $g-accent
+      );
+    }
+  }
+
+  .gshop__content {
+    @include flex-center(column, 40px);
+
+    .gshop__intro-text {
+      @include center-block(700px);
+
+      .gshop__intro-title {
+        @include text-style(1.8rem, $g-accent2, bold, center);
+        margin-bottom: 10px;
+      }
+
+      .gshop__intro-desc {
+        @include text-style(1rem, #bdbdfd, normal, center);
+        line-height: 1.5;
+      }
+    }
+
+    .gshop__cards {
+      @include flex-center(row, 25px);
+      flex-wrap: wrap;
+    }
+
+    .gshop__card {
+      @include card-style(
+        220px,
+        $g-card-bg,
+        $g-border,
+        rgba($g-accent, 0.1),
+        rgba($g-accent, 0.5)
+      );
+
+      &-img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border: 1px solid $g-border;
+      }
+
+      &-headline {
+        @include text-style(1.1rem, $g-accent, 600, center);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}

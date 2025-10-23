@@ -13,7 +13,7 @@ const Products = () => {
       <Product />
       <Task />
       <CardSearch />
-      <PropsAbout/>
+      <PropsAbout />
     </>
   );
 };
