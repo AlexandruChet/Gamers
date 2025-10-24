@@ -1,67 +1,63 @@
----
+# 🎮 **GamerStore**
 
-````{"id":"70325","variant":"standard","title":"Improved README for GamerStore"}
-# 🎮 GamerStore
+**GamerStore** is a full-stack web application for gamers — built with **React + TypeScript** on the frontend and **Node.js + Express** on the backend.  
+It demonstrates how to create a modern, responsive online store with a pleasant UI, structured client logic, and a lightweight backend.
 
-**GamerStore** is an online store for gamers, built on **React + TypeScript** with a server-side on **Node.js**.
-The project demonstrates the creation of a modern web application with a nice interface, client logic and backend for data storage and processing.
-
-> 💡 The goal is to practice frontend and backend to prepare for an internship in Germany.
+> 💡 _Main goal:_ to practice full-stack development and prepare for a software engineering internship in Germany.
 
 ---
 
-## ⚡ Key features
+## ⚡ **Key Features**
 
-- 🎨 **Modern interface:** responsive design for PC and mobile devices.
-- 🛍️ **Product catalog:** browsing, searching, filtering and sorting.
-- 🧠 **Server logic:** storing users in JSON (`users.json`).
-- 🧱 **TypeScript:** safe typing of components and services.
-- 🚀 **Scalability:** a convenient structure for expanding functionality.
-
----
-
-## 🛠 Technologies
-
-| Category | Technologies |
-|------------|------------|
-| **Frontend** | React, TypeScript, SCSS, HTML, JavaScript |
-| **Backend** | Node.js, Express, TypeScript |
-| **Data Storage** | JSON (`users.json`) |
-| **Development** | VSCode, Prettier, Live Server |
+✅ **Modern UI/UX** — clean design with SCSS and responsive layout  
+🛒 **Product Catalog** — browse, search, filter, and sort games or gear  
+💾 **Server Logic** — backend stores user data in `users.json`  
+🧠 **TypeScript Everywhere** — safe typing and clear project structure  
+🚀 **Scalable Setup** — organized architecture for easy feature expansion
 
 ---
 
-## 📁 Project structure
+## 🛠 **Tech Stack**
+
+| Layer                 | Technologies                              |
+| :-------------------- | :---------------------------------------- |
+| **Frontend**          | React, TypeScript, SCSS, HTML, JavaScript |
+| **Backend**           | Node.js, Express, TypeScript              |
+| **Data Storage**      | JSON (`users.json`)                       |
+| **Development Tools** | VSCode, Prettier, Live Server             |
+
+---
+
+## 📁 **Project Structure**
 
 ```
 GamerStore/
 │
-├─ client/ # Frontend (React + TS)
-│ ├─ dist/
-│ │ ├─ assets/
-│ │ ├─ errorCss.css
-│ │ ├─ 404.html
-│ │ └─ index.html
-│ └─ src/
-│ ├─ assets/
-│ ├─ components/
-│ ├─ logic/
-│ └─ services/
+├─ client/              # Frontend (React + TypeScript)
+│  ├─ dist/
+│  │  ├─ assets/
+│  │  ├─ 404.html
+│  │  └─ index.html
+│  └─ src/
+│     ├─ assets/
+│     ├─ components/
+│     ├─ logic/
+│     └─ services/
 │
-├─ server/ # Backend (Node.js)
-│ ├─ data/
-│ │ └─ users.json
-│ ├─ src/
-│ │ ├─ .env
-│ │ └─ server.ts
-│ ├─ tsconfig.json
-│ ├─ package.json
-│ └─ package-lock.json
+├─ server/              # Backend (Node.js + Express)
+│  ├─ data/
+│  │  └─ users.json
+│  ├─ src/
+│  │  ├─ .env
+│  │  └─ server.ts
+│  ├─ tsconfig.json
+│  ├─ package.json
+│  └─ package-lock.json
 ```
 
 ---
 
-## 🚀 Project launch
+## 🚀 **How to Run the Project**
 
 ### 🔹 Frontend
 
@@ -76,37 +72,42 @@ npm run dev
 ```bash
 cd server
 npm install
-tsc server.ts
-node server.js
+npx tsc
+node dist/server.js
 ```
 
 ---
 
-## 🎯 Project goal
+## 🎯 **Objectives**
 
-- Show practical skills in **React + TypeScript** and **Node.js**.
-- Gain experience in creating a **full-fledged web application** with client and server parts.
-- Prepare for real team development during the internship.
-
----
-
-## 🌱 Future plans
-
-- 🔗 Connect a **real database** (MongoDB / PostgreSQL).
-- 💅 Improve **UI/UX**, add animations and effects.
-- 🧩 Expand **product catalog**, add categories, filters and a cart.
-- 🧑‍💻 Implement **user authorization** and order storage.
+- Strengthen skills in **React + TypeScript** and **Node.js**
+- Build a **real full-stack web app** with client and server logic
+- Prepare for **collaborative, professional development**
 
 ---
 
-## 📸 Preview
+## 🌱 **Future Improvements**
 
-> *(You can add UI screenshots or demo GIFs here for clarity)*
+- 🔗 Integrate a **real database** (MongoDB / PostgreSQL)
+- 💅 Enhance **UI/UX** with animations and transitions
+- 🧩 Expand **product catalog** with filters and shopping cart
+- 🔐 Add **authentication** and persistent user sessions
+- ☁️ Deploy the app to **Vercel + Render / Railway**
 
 ---
 
-## 🧑‍💻 Author
+## 🖼 **Preview**
 
-**Alexandru Chet**
-[GitHub profile](https://github.com/AlexandruChet)
+> _(Add screenshots or a demo GIF here — e.g. `/client/src/assets/demo.gif`)_
 
+---
+
+## 👨‍💻 **Author**
+
+**Alexandru Chet**  
+📍 Aspiring Full-Stack Developer  
+🔗 [GitHub Profile](https://github.com/AlexandruChet)
+
+---
+
+### ⭐ _If you like this project, give it a star on GitHub!_

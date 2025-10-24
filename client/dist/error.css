@@ -1,0 +1,51 @@
+body {
+  background: radial-gradient(circle at top left, #2b2b3d, #1e1e2f);
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.error-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
+  width: 100%;
+}
+
+.error-code {
+  font-size: 7rem;
+  font-weight: 800;
+  color: #ffd369;
+  text-shadow: 0 0 20px rgba(255, 211, 105, 0.4);
+}
+
+.btn-warning {
+  font-weight: 600;
+}
+
+.btn-outline-light:hover {
+  color: #1e1e2f;
+}
+
+.illustration {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.illustration::before {
+  content: "💻";
+  font-size: 8rem;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.2;
+}
