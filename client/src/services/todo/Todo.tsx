@@ -23,9 +23,18 @@ const Task: React.FC = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  const isValidImageUrl = (url: string) => {
+    return /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp)$/i.test(url);
+  };
+
   const addTask = () => {
     if (!title.trim() || !imgUrl.trim()) {
       alert("Please fill in both text and image URL");
+      return;
+    }
+
+    if (!isValidImageUrl(imgUrl)) {
+      alert("Please enter a valid image URL");
       return;
     }
 
@@ -42,6 +51,28 @@ const Task: React.FC = () => {
 
   const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const deleteAllTasks = () => {
+    if (window.confirm("Are you sure you want to delete all tasks?")) {
+      setTasks([]);
+    }
+  };
+
+  const moveTaskUp = (index: number) => {
+    if (index === 0) return;
+    const updated = [...tasks];
+    const [moved] = updated.splice(index, 1);
+    updated.splice(index - 1, 0, moved);
+    setTasks(updated);
+  };
+
+  const moveTaskDown = (index: number) => {
+    if (index === tasks.length - 1) return;
+    const updated = [...tasks];
+    const [moved] = updated.splice(index, 1);
+    updated.splice(index + 1, 0, moved);
+    setTasks(updated);
   };
 
   return (
@@ -69,20 +100,40 @@ const Task: React.FC = () => {
           <button className="add-btn" onClick={addTask}>
             ➕ Add
           </button>
+          <button className="clear-all-btn" onClick={deleteAllTasks}>
+            🗑 Clear All
+          </button>
         </div>
 
         <ul className="task-list">
-          {tasks.map((task) => (
+          {tasks.map((task, index) => (
             <li className="task-item" key={task.id}>
               <img className="task-image" src={task.url} alt={task.title} />
               <span className="task-text">{task.title}</span>
-              <button
-                className="delete-btn"
-                onClick={() => deleteTask(task.id)}
-                title="Delete task"
-              >
-                ✖
-              </button>
+
+              <div className="task-actions">
+                <button
+                  className="move-btn__up"
+                  onClick={() => moveTaskUp(index)}
+                  title="Move up"
+                >
+                  🔼
+                </button>
+                <button
+                  className="move-btn__down"
+                  onClick={() => moveTaskDown(index)}
+                  title="Move down"
+                >
+                  🔽
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteTask(task.id)}
+                  title="Delete task"
+                >
+                  ✖
+                </button>
+              </div>
             </li>
           ))}
         </ul>
