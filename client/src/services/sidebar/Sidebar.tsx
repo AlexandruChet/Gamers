@@ -22,20 +22,40 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   image,
 }) => {
+  const [Glass, setGlass] = useState<boolean>(false);
+  const [bodyHearth, setBodyHearth] = useState<boolean>(false);
+
+  function magnifyingGlassChange() {
+    setGlass((prev) => !prev);
+    setTimeout(() => setGlass(true), 10);
+  }
+
+  function hearthChange() {
+  setBodyHearth(true);
+  setTimeout(() => setBodyHearth(false), 1200);
+}
+
+
   return (
     <div className="product-card">
       <div className="menu">
-        <button>
+        <button onClick={magnifyingGlassChange}>
           <img src={magnifyingGlass} alt="view" />
         </button>
-        <button>
+        <button onClick={hearthChange}>
           <img src={hearth} alt="favorite" />
         </button>
         <button>
           <img src={basket} alt="basket" />
         </button>
       </div>
-      <img src={image} alt={name} className="product-img" />
+      <div
+        className={`product-img-wrapper ${Glass ? "magnifying_glass" : ""} ${
+          bodyHearth ? "hearth_image" : ""
+        }`}
+      >
+        <img src={image} alt={name} className="product-img" />
+      </div>
       <h2>{name}</h2>
       <h3>{brand}</h3>
       <p>⭐⭐⭐⭐⭐</p>

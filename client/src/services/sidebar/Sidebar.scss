@@ -1,5 +1,92 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
 
+@keyframes animation_glass {
+  0% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.product-img-wrapper {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+
+  &.magnifying_glass {
+    animation: animation_glass 5s ease-in-out;
+  }
+
+  &.hearth_image {
+    animation: pulseGlow 0.6s ease-in-out;
+    filter: drop-shadow(0 0 12px red) saturate(2);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+
+    img {
+      filter: hue-rotate(-20deg) brightness(1.2) saturate(2);
+    }
+
+    &::before,
+    &::after {
+      content: "❤️";
+      z-index: 10;
+      position: absolute;
+      font-size: 22px;
+      opacity: 0;
+      animation: flyHearts 1.2s ease-out forwards;
+    }
+
+    &::before {
+      left: -15px;
+      top: 10px;
+      animation-delay: 0s;
+    }
+
+    &::after {
+      right: -15px;
+      top: 5px;
+      animation-delay: 0.2s;
+    }
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 red);
+  }
+  50% {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 15px red);
+  }
+  100% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 12px red);
+  }
+}
+
+@keyframes flyHearts {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.8) rotate(0deg);
+  }
+  30% {
+    transform: translate(-10px, -30px) scale(1.1) rotate(-15deg);
+  }
+  60% {
+    transform: translate(10px, -60px) scale(1.2) rotate(15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, -90px) scale(1.4) rotate(0deg);
+  }
+}
+
 .sidebar {
   position: fixed;
   top: 0;
